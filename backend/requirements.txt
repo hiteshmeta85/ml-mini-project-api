@@ -1,0 +1,7 @@
+transformers
+keras_preprocessing
+tensorflow
+pandas
+numpy
+flask
+deep_translator
