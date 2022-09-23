@@ -2,7 +2,9 @@
 
 ## Dataset 
 
-``` https://drive.google.com/file/d/1IJBNMt2pGmDxTq2e64rpzDjaz4aAauL7/view?usp=sharing ```
+``` https://www.kaggle.com/competitions/nlp-getting-started/data?select=train.csv ```
+
+Accuracy achieved: 80.44%
 
 # Setup
 
@@ -10,7 +12,7 @@
 
 Download and save the folder in backend/models/
 
-Model link - ``` ```
+Model link - ``` https://drive.google.com/file/d/1IJBNMt2pGmDxTq2e64rpzDjaz4aAauL7/view?usp=sharing ```
 
 ## Installation
 
