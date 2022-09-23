@@ -1,41 +1,48 @@
 import twint
-import os
+import os,re
 import json
-import uuid
+import yaml
 from config import tweetpath
 from deep_translator import GoogleTranslator
-import pandas as pd
+from model import sentence_prediction
+from functions import json_format
 
-def top_tweets(username):
-    for user in username:
+#pyyaml==5.4.1
+def twint_scrapper(hashtags, project_id=0, k=0,is_video = False):
+    for i in hashtags:
+        i2 = re.sub("#", "", i)
         c = twint.Config()
-        c.Limit = 20
-        path = os.path.join(
-            tweetpath, f"Tweets_{str(uuid.uuid4())}_.json")
-        c.Output = path
-        c.Store_json = True
-        c.Username = user
+        c.Search = i2
+        #c.Lang = "en"
+        c.Limit = 100
+        #c.Min_likes = 1
+        c.Output = os.path.join(
+            tweetpath, "tweet_non_processed/non_processed.json")
+        k = k+1
         c.Filter_retweets = True
-        a = twint.run.Search(c)
+        c.Store_json = True
+        c.Hide_output = True
+        twint.run.Search(c)
+        print(f"Scrapped for Hashtags = {k}" + f" - {i2}")
 
     # scrapping done & preprocessing start
-    totalTweets = {}
-    for user in username:
-        tweets = []
-        for line in open(path, 'r', encoding="utf8"):
-            tweets.append(json.loads(line))
-            totalTweets[user] = tweets
+    json_format(os.path.join(tweetpath, "tweet_non_processed/non_processed.json"),
+                os.path.join(tweetpath, "tweet_processed/out.json"))
+    os.remove(os.path.join(tweetpath, "tweet_non_processed/non_processed.json"))
 
-    data = json.dumps(totalTweets[user])
-    data_sorted = pd.read_json(data)
-    data_sorted = data_sorted.drop(['mentions', 'created_at', 'date', 'user_rt_id', 'user_rt', 'retweet_id', 'reply_to', 'retweet_date', 'trans_src',
-                                    'trans_dest', 'cashtags', 'retweet', 'quote_url', 'place', 'conversation_id', 'id'], axis=1)
-    #data_sorted['translated'] = data_sorted.apply(lambda x: g_translation_function_en(data_sorted['tweet']))
-    print('\nTwitter data scrapped !\n')
+    os.rename(os.path.join(tweetpath, "tweet_processed/out.json"),
+              os.path.join(tweetpath, f"tweet_processed/project_{project_id}.json"))
+    print("Scrapping Completed")
 
-    data_return = data_sorted.to_json(orient='records')
+    data = yaml.load(open(os.path.join(
+        tweetpath, f"tweet_processed/project_{project_id}.json"), 'r', encoding='utf-8'))
+    with open(os.path.join(tweetpath, f"tweet_processed/project_{project_id}_final.json"), 'w') as f:
+        json.dump(data, f)
 
-    return data_return
+    with open(os.path.join(tweetpath, f"tweet_processed/project_{project_id}_final.json"), 'r', encoding='utf-8') as f:
+        json_content = json.loads(f.read())
+
+    return json_content
 
 
 def g_translation_function_en(inText):
@@ -49,3 +56,15 @@ def g_translation_function_en(inText):
     except Exception as e:
         print(e)
         return inText
+
+def ranker(data,param = 0.5):
+    for tweet in data:
+        try:
+            if sentence_prediction(tweet['tweet']) > param:
+                tweet['prediction'] = 1
+            else:
+                tweet['prediction'] = 0
+        except Exception as e:
+            print(e)
+            tweet['prediction'] = 0
+    return data
