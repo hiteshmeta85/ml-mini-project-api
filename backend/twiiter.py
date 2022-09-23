@@ -1,5 +1,6 @@
 import twint
-import os,re
+import os
+import re
 import json
 import yaml
 from config import tweetpath
@@ -7,8 +8,10 @@ from deep_translator import GoogleTranslator
 from model import sentence_prediction
 from functions import json_format
 
-#pyyaml==5.4.1
-def twint_scrapper(hashtags, project_id=0, k=0,is_video = False):
+# pyyaml==5.4.1
+
+
+def twint_scrapper(hashtags, project_id=0, k=0, is_video=False):
     for i in hashtags:
         i2 = re.sub("#", "", i)
         c = twint.Config()
@@ -57,7 +60,8 @@ def g_translation_function_en(inText):
         print(e)
         return inText
 
-def ranker(data,param = 0.5):
+
+def ranker(data, param=0.5):
     for tweet in data:
         try:
             if sentence_prediction(tweet['tweet']) > param:

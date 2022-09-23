@@ -7,7 +7,7 @@ app = Flask(__name__, static_folder='static')
 
 # API
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home(): 
     return jsonify({'data': 'Hello World!'})
 
