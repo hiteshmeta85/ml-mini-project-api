@@ -11,7 +11,6 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-
 app = Flask(__name__, static_folder='static')
 
 # API
@@ -52,6 +51,8 @@ def predict():
                 tweet['prediction'] = 0
             out.append(tweet)
         return jsonify({'data': {'twitterData': out}})
+    elif request.method == "GET":
+        return ("Error GET Not Configured")
 
 
 if __name__ == '__main__':
