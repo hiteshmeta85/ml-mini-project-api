@@ -1,0 +1,7 @@
+version: "3.7"
+services:
+  ml_mini_project_api:
+    build:
+      context: ./
+    ports:
+      - "5000:5000"

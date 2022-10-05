@@ -5,4 +5,5 @@ pandas
 numpy
 flask
 deep_translator
-pyyaml==5.4.1
+PyYAML==5.4.1
+gdown

@@ -25,6 +25,9 @@ pip install -r requirement.txt
 ```
 
 ## Backend - FLASK
+```
+python init_db.py
+```
 
 ```
 cd backend

@@ -5,8 +5,8 @@ import json
 import yaml
 from config import tweetpath
 from deep_translator import GoogleTranslator
-from model import sentence_prediction
 from functions import json_format
+
 
 # pyyaml==5.4.1
 
@@ -16,7 +16,7 @@ def twint_scrapper(hashtags, project_id=0, k=0, is_video=False):
         i2 = re.sub("#", "", i)
         c = twint.Config()
         c.Search = i2
-        #c.Lang = "en"
+        c.Lang = "en"
         c.Limit = 100
         #c.Min_likes = 1
         c.Output = os.path.join(
@@ -45,7 +45,7 @@ def twint_scrapper(hashtags, project_id=0, k=0, is_video=False):
     with open(os.path.join(tweetpath, f"tweet_processed/project_{project_id}_final.json"), 'r', encoding='utf-8') as f:
         json_content = json.loads(f.read())
 
-    return json_content
+    return json_content['data']
 
 
 def g_translation_function_en(inText):

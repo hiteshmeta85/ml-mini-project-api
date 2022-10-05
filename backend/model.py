@@ -27,6 +27,12 @@ MODEL = BERTBaseUncased()
 TOKENIZER = transformers.BertTokenizer.from_pretrained(
     BERT_PATH, do_lower_case=True)
 
+MODEL.load_state_dict(torch.load(
+    modelpath, map_location=torch.device(DEVICE)))
+MODEL.to(DEVICE)
+MODEL.eval()
+print("\nBERT MODEL LOADDED\n")
+
 
 def sentence_prediction(sentence):
     tokenizer = TOKENIZER  # bertfasttokenizer
@@ -58,11 +64,6 @@ def sentence_prediction(sentence):
 
     outputs = MODEL(ids=ids, mask=mask,
                     token_type_ids=token_type_ids)  # eval command
-    MODEL.load_state_dict(torch.load(
-        modelpath, map_location=torch.device(DEVICE)))
-    MODEL.to(DEVICE)
-    MODEL.eval()
-    print("\nBERT MODEL LOADDED - 1\n")
 
     outputs = torch.sigmoid(outputs).cpu().detach().numpy()
     return outputs[0][0]

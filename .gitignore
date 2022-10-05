@@ -128,3 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 backend/models/model-64.bin
+backend/data/tweet_processed/*.json
+backend/data/tweet_non_processed/*.json
