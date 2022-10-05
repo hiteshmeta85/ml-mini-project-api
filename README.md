@@ -6,7 +6,17 @@
 
 Accuracy achieved: 80.44%
 
-# Setup
+# Setup [Docker]
+
+## Build Docker Image
+
+```docker-compose up```
+
+## Rebuild Docker Image
+
+```docker-compose up --build```
+
+# Setup [Local]
 
 ## Model Used - BERT UNCASED 
 
@@ -16,9 +26,13 @@ Model link - ``` https://drive.google.com/file/d/1IJBNMt2pGmDxTq2e64rpzDjaz4aAau
 
 ## Installation
 
+- Twint installation
+
 ```
 pip3 install --user --upgrade git+https://github.com/twintproject/twint.git@origin/master#egg=twint
 ```
+
+-  Install requirements
 
 ```
 pip install -r requirement.txt 
