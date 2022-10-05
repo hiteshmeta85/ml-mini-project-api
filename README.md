@@ -25,6 +25,12 @@ pip install -r requirement.txt
 ```
 
 ## Backend - FLASK
+
+### If you want to start a new session od db
+
+- Delete the db.sqlite file in backend folder
+- Run the following commands
+
 ```
 python init_db.py
 ```
