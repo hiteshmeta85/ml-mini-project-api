@@ -33,16 +33,15 @@ def twitter():
         return ("Error GET Not Configured")
 
 
-@app.route('/v0/api/predict', methods=['GET', 'POST'])
-def predict():
-    if request.method == 'POST':
-        data = request.get_json()
-        batch_to_fetch = data['batch']
+@app.route('/v0/api/predict/<int:id>', methods=['GET', 'POST'])
+def predict(id):
+    if request.method == 'GET':
+        batch_to_fetch = id
         conn = get_db_connection()
         data = conn.execute('SELECT * FROM twitter WHERE batch = ?', (batch_to_fetch,)).fetchall()
         conn.close()
         out = []
-        for row in data[:2]:
+        for row in data:
             tweet = dict(row)
             pred = sentence_prediction(tweet['tweet'])
             if pred >= 0.85:
