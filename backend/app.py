@@ -30,7 +30,7 @@ def twitter():
         conn.close()
         return jsonify({'data': {'twitterData': data_scrapped, 'hashtags': hashtags, 'batch':batch_new}})
     elif request.method == "GET":
-        return ("Error GET Not Configured")
+        return jsonify("Error GET Not Configured")
 
 
 @app.route('/v0/api/predict/<int:id>', methods=['GET', 'POST'])
@@ -51,7 +51,7 @@ def predict(id):
             out.append(tweet)
         return jsonify({'data': {'twitterData': out}})
     elif request.method == "GET":
-        return ("Error GET Not Configured")
+        return jsonify("Error GET Not Configured")
 
 
 if __name__ == '__main__':
