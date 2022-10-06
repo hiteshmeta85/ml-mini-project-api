@@ -1,6 +1,6 @@
 transformers
 keras_preprocessing
-tensorflow
+tensorflow-macos
 pandas
 numpy
 flask
