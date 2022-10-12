@@ -6,6 +6,8 @@
 
 Accuracy achieved: 80.44%
 
+collab Notebook link - `https://colab.research.google.com/drive/1ThpOIpY33l3WXFGH9QAlX0BmE67pTZNK?usp=sharing`
+
 # Setup [Docker]
 
 ## Build Docker Image

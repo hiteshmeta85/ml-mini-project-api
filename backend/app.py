@@ -1,6 +1,5 @@
 from flask import Flask
 import sqlite3
-import json
 from flask import Flask, request
 from flask import jsonify
 from twiiter import twint_scrapper
