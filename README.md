@@ -57,3 +57,18 @@ python init_db.py
 cd backend
 python app.py
 ```
+
+---
+
+### Sample Images
+
+1. Select Disaster Type
+   ![](images/index.png)
+2. Enter Custom Hashtags
+   ![](images/custom-hashtags.png)
+3. Raw Data scraped from Twitter using Twint
+   ![](images/raw-data.png)
+4. Binary Classified Data using BERT Model
+   ![](images/binary-classified-data.png)
+5. BERT model flow for Binary Classification of Text
+   ![](images/model-flow.png)
